@@ -1,0 +1,33 @@
+{
+  "channels": [
+    {
+      "name": "Aniruddha Bapu All - He and His World (Hindi)",
+      "id": "UC66O1PXhjqbgt0dIYAhozRA",
+      "lang": "Hindi"
+    },
+    {
+      "name": "Aniruddha Bapu All - He and His World (English)",
+      "id": "UCB32l_KABjD-XzsrA-RtbSA",
+      "lang": "English"
+    },
+    {
+      "name": "Aniruddha Bapu All - Regional Languages",
+      "id": "UCQ7t9glFUw24P6tOyEb87Bw",
+      "lang": "Regional"
+    }
+  ],
+  "playlists": [],
+  "_playlists_note": "Optional: paste anubhav playlist IDs (PLxxxx). Every video in them is included as anubhav.",
+  "anubhav_keywords": [
+    "anubhav",
+    "anubhava",
+    "anubhooti",
+    "anubhuti",
+    "अनुभव",
+    "अनुभूती",
+    "अनुभूति",
+    "experience",
+    "testimony",
+    "testimonial"
+  ]
+}

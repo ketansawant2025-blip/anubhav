@@ -1,0 +1,8 @@
+{
+  "Farmers": ["farmer", "farming", "farm", "crop", "agricultur", "harvest", "kisan", "शेतकरी", "शेती", "पीक", "किसान", "खेती", "फसल"],
+  "Education": ["education", "student", "exam", "school", "college", "study", "marks", "result", "admission", "शिक्षण", "विद्यार्थी", "परीक्षा", "अभ्यास", "शाळा", "पढ़ाई", "परीक्षा"],
+  "Accident": ["accident", "crash", "collision", "flood", "fire", "injur", "rescue", "survived", "अपघात", "दुर्घटना", "आग", "पूर", "बचाव", "हादसा"],
+  "Health": ["health", "illness", "disease", "cancer", "surgery", "hospital", "doctor", "heal", "recovery", "pain", "आरोग्य", "आजार", "रोग", "शस्त्रक्रिया", "दवाखाना", "स्वास्थ्य", "बीमारी", "इलाज", "ऑपरेशन"],
+  "Finance": ["finance", "financial", "money", "loan", "debt", "business", "salary", "job", "income", "profit", "आर्थिक", "पैसा", "कर्ज", "नोकरी", "व्यवसाय", "धंदा", "व्यापार", "नौकरी"],
+  "Family": ["family", "marriage", "wedding", "child", "baby", "son", "daughter", "husband", "wife", "कुटुंब", "विवाह", "लग्न", "मुलगा", "मुलगी", "परिवार", "शादी", "बच्चा"]
+}

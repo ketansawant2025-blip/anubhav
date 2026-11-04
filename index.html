@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aniruddha Bapu Anubhav</title>
+<style>
+  :root{--bg:#f8f4fd;--card:#fff;--ink:#251a33;--muted:#6f6280;--accent:#6d3fb5;--line:#e4d8f3}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1423;--card:#251d31;--ink:#f0e9f8;--muted:#b0a2c4;--accent:#b99af0;--line:#38294a}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Noto Sans Devanagari",sans-serif;line-height:1.5}
+  header{text-align:center;padding:24px 16px 8px}
+  header img{width:100%;max-width:480px;aspect-ratio:16/9;border-radius:12px;object-fit:cover;object-position:50% 25%;border:2px solid var(--accent);background:var(--line);display:block;margin:0 auto}
+  h1{font-size:1.3rem;margin:10px 0 2px}
+  .sub{color:var(--muted);font-size:.9rem}
+  main{max-width:760px;margin:0 auto;padding:8px 16px 40px}
+  input[type=search]{width:100%;padding:12px 14px;font-size:1rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;font-size:.85rem;cursor:pointer}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .count{color:var(--muted);font-size:.85rem;margin:4px 0 10px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+  .card h2{font-size:1rem;margin:0 0 6px}
+  .meta{font-size:.78rem;color:var(--muted);margin-bottom:8px}
+  .tag{background:var(--line);padding:2px 8px;border-radius:999px;margin-right:6px}
+  .txt{white-space:pre-wrap;font-size:.92rem;max-height:6.5em;overflow:hidden}
+  .card.open .txt{max-height:none}
+  .row{display:flex;gap:14px;margin-top:8px}
+  .row a,.row button{color:var(--accent);background:none;border:0;padding:0;font-size:.88rem;cursor:pointer;text-decoration:none}
+  mark{background:#ffd98a;color:#000;border-radius:2px}
+  .empty{text-align:center;color:var(--muted);padding:30px 10px}
+</style>
+</head>
+<body>
+<header>
+  <!-- Put Bapu's photo in this folder and name it bapu.jpg -->
+  <img src="bapu.jpg" alt="Sadguru Aniruddha Bapu" onerror="this.style.visibility='hidden'">
+  <h1>Sadguru Aniruddha Bapu — Anubhav</h1>
+  <div class="sub">Search and browse devotee experiences</div>
+</header>
+<main>
+  <input id="q" type="search" placeholder="Search anubhav… (English / हिंदी / मराठी)">
+  <div class="chips" id="cats"></div>
+  <div class="chips" id="langs"></div>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+</main>
+<script src="data.js"></script>
+<script>
+const DATA = window.ANUBHAV_DATA || [];
+const CATS = ["All","Farmers","Education","Accident","Health","Finance","Family","Beyond Expectations"];
+const LANGS = ["All languages","English","Hindi","Marathi","Regional"];
+let cat="All", lang="All languages", q="";
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rx = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+function chips(id, items, get, set){
+  const el=document.getElementById(id);
+  el.innerHTML=items.map(i=>`<button class="chip ${get()===i?"on":""}" data-v="${esc(i)}">${esc(i)}</button>`).join("");
+  el.onclick=e=>{const v=e.target.dataset.v; if(v){set(v); render();}};
+}
+function render(){
+  chips("cats",CATS,()=>cat,v=>cat=v);
+  chips("langs",LANGS,()=>lang,v=>lang=v);
+  const words=q.toLowerCase().split(/\s+/).filter(Boolean);
+  const res=DATA.filter(v=>(cat==="All"||v.category===cat)&&(lang==="All languages"||v.language===lang)
+    &&words.every(w=>(v.title+" "+v.text).toLowerCase().includes(w)));
+  document.getElementById("count").textContent=res.length+" anubhav";
+  const hl=s=>{s=esc(s); return words.length?s.replace(new RegExp("("+words.map(rx).map(esc).join("|")+")","gi"),"<mark>$1</mark>"):s;};
+  document.getElementById("list").innerHTML=res.length?res.map(v=>`
+    <div class="card">
+      <h2>${hl(v.title)}</h2>
+      <div class="meta"><span class="tag">${esc(v.category)}</span><span class="tag">${esc(v.language)}</span>${esc(v.date)}</div>
+      <div class="txt">${hl(v.text||"")}</div>
+      <div class="row"><button onclick="this.closest('.card').classList.toggle('open')">Read more</button>
+      <a href="${esc(v.url)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>
+    </div>`).join(""):`<div class="empty">${DATA.length?"No anubhav match your search.":"No anubhav loaded yet. Run the updater (see README)."}</div>`;
+}
+document.getElementById("q").oninput=e=>{q=e.target.value;render();};
+render();
+</script>
+</body>
+</html>

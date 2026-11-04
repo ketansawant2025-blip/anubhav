@@ -1,0 +1,1 @@
+window.ANUBHAV_DATA = [];
